@@ -1,29 +1,27 @@
-import webbrowser
 import socket
 import time
-from colored import fg, attr
+import webbrowser
+from colorama import Fore, Style
 
 # Função para imprimir o cabeçalho do menu
 def print_header(text):
-    color = fg('purple')
-    print(f"{color}{text}{attr(0)}")
+    print(f"{Fore.MAGENTA}{text}{Style.RESET_ALL}")
 
 # Função para imprimir as opções do menu
 def print_option(number, text):
-    color = fg('cyan')
-    print(f"{color}{number}. {text}{attr(0)}")
+    print(f"{Fore.CYAN}{number}. {text}{Style.RESET_ALL}")
 
 # Função para consultar o IP do site
 def check_website_status(site):
     try:
         ip = socket.gethostbyname(site)
-        print(f"\n{fg('magenta')}=== Informações do site {site} ===")
+        print(f"\n{Fore.MAGENTA}=== Informações do site {site} ===")
         print(f"IP do site: {ip}")
 
         # Implemente aqui a verificação das portas abertas e se o site está fora do ar
 
     except socket.gaierror:
-        print(f"{fg('red')}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
+        print(f"{Fore.RED}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
 
 # Função para verificar o tempo de resposta do site
 def get_website_response_time(site):
@@ -33,37 +31,37 @@ def get_website_response_time(site):
         socket.create_connection((ip, 80), timeout=10)
         end_time = time.time()
         response_time = end_time - start_time
-        print(f"\n{fg('magenta')}=== Tempo de Resposta do site {site} ===")
+        print(f"\n{Fore.MAGENTA}=== Tempo de Resposta do site {site} ===")
         print(f"Tempo de resposta: {response_time:.2f} segundos")
     except socket.gaierror:
-        print(f"{fg('red')}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
+        print(f"{Fore.RED}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
     except socket.timeout:
-        print(f"{fg('red')}O site {site} não respondeu em um tempo razoável.")
+        print(f"{Fore.RED}O site {site} não respondeu em um tempo razoável.")
 
 # Função para verificar se o site está fora do ar
 def check_site_status(site):
     try:
         ip = socket.gethostbyname(site)
         # Implemente aqui a verificação se o site está fora do ar
-        print(f"\n{fg('magenta')}=== Status do site {site} ===")
+        print(f"\n{Fore.MAGENTA}=== Status do site {site} ===")
         print(f"Verificação do status em andamento...")
     except socket.gaierror:
-        print(f"{fg('red')}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
+        print(f"{Fore.RED}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
 
 # Função para verificar se o site é UDP ou TCP
 def check_site_protocol(site):
     try:
         # Implemente aqui a verificação se o site é UDP ou TCP
-        print(f"\n{fg('magenta')}=== Protocolo do site {site} ===")
+        print(f"\n{Fore.MAGENTA}=== Protocolo do site {site} ===")
         print(f"Verificação do protocolo em andamento...")
     except:
-        print(f"{fg('red')}Ocorreu um erro ao verificar o protocolo do site {site}.")
+        print(f"{Fore.RED}Ocorreu um erro ao verificar o protocolo do site {site}.")
 
 # Função para verificar as portas abertas do site
 def check_open_ports(site):
     try:
         ip = socket.gethostbyname(site)
-        print(f"\n{fg('magenta')}=== Portas Abertas do site {site} ===")
+        print(f"\n{Fore.MAGENTA}=== Portas Abertas do site {site} ===")
         
         port_found = False  # Variável de controle para verificar se encontrou alguma porta aberta
         
@@ -80,12 +78,12 @@ def check_open_ports(site):
         if not port_found:
             print(f"Todas as portas estão fechadas no site {site}.")
     except socket.gaierror:
-        print(f"{fg('red')}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
+        print(f"{Fore.RED}Não foi possível encontrar o IP para o site {site}. O site pode estar fora do ar ou não existe.")
 
 # Função para redirecionar o usuário para o link "https://utilities-hon-this-speak.trycloudflare.com"
 def redirect_user():
     link = "https://utilities-hon-this-speak.trycloudflare.com"
-    print(f"\n{fg('magenta')}=== Redirecionando para {link} ===")
+    print(f"\n{Fore.MAGENTA}=== Redirecionando para {link} ===")
     webbrowser.open(link)
 
 # Loop principal do menu
@@ -100,29 +98,30 @@ while True:
     print_option(7, "Não entre")
     print_option(0, "Sair")
     
-    choice = int(input(f"{fg('cyan')}Escolha uma opção: {attr(0)}"))
+    choice = int(input(f"{Fore.CYAN}Escolha uma opção: {Style.RESET_ALL}"))
 
     if choice == 1:
-        site = input(f"{fg('yellow')}Digite o nome do site: {attr(0)}")
+        site = input(f"{Fore.YELLOW}Digite o nome do site: {Style.RESET_ALL}")
         check_website_status(site)
     elif choice == 2:
-        site = input(f"{fg('yellow')}Digite o nome do site: {attr(0)}")
+        site = input(f"{Fore.YELLOW}Digite o nome do site: {Style.RESET_ALL}")
         check_site_status(site)
     elif choice == 3:
-        site = input(f"{fg('yellow')}Digite o nome do site: {attr(0)}")
+        site = input(f"{Fore.YELLOW}Digite o nome do site: {Style.RESET_ALL}")
         get_website_response_time(site)
     elif choice == 4:
-        site = input(f"{fg('yellow')}Digite o nome do site: {attr(0)}")
+        site = input(f"{Fore.YELLOW}Digite o nome do site: {Style.RESET_ALL}")
         check_site_protocol(site)
     elif choice == 5:
-        site = input(f"{fg('yellow')}Digite o nome do site: {attr(0)}")
+        site = input(f"{Fore.YELLOW}Digite o nome do site: {Style.RESET_ALL}")
         check_open_ports(site)
     elif choice == 6:
-        print(f"\n{fg('green')}Créditos: @zedhacking {attr(0)}")
+        print(f"\n{Fore.GREEN}Créditos: Matheus Fernandes\nInstagram: @Matheusmofer{Style.RESET_ALL}")
     elif choice == 7:
         redirect_user()
     elif choice == 0:
-        print(f"{fg('red')}Saindo do programa...{attr(0)}")
+        print(f"{Fore.RED}Saindo do programa...{Style.RESET_ALL}")
         break
     else:
-        print(f"{fg('red')}Opção inválida. Tente novamente.{attr(0)}")
+        print(f"{Fore.RED}Opção inválida. Tente novamente.{Style.RESET_ALL}")
+        
